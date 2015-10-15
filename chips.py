@@ -2,6 +2,7 @@
 
 import argparse
 import chipdb
+import chipplot
 import os
 
 db = None
@@ -18,12 +19,19 @@ def remove(args):
 
 def show(args):
   global db
-  print(args)
   if args.filter:
     db = db.filter(args.filter)
   if args.sort:
     db = db.sort(args.sort)
   print(db)
+
+def plot(args):
+  global db
+  if args.filter:
+    db = db.filter(args.filter)
+  if args.sort:
+    db = db.sort(args.sort)
+  chipplot.plot_bandwidth(db, args.plotfile)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Router Chips tool')
@@ -69,6 +77,18 @@ if __name__ == '__main__':
                            help='ex: "p;company;.*Cray.*|n;year;2008;2010"')
   show_parser.add_argument('-s', '--sort',
                            help='sorts: "d;company;chipname" decending')
+
+  # 'plot' chip bandwidths command
+  cmd = 'plot'
+  plot_parser = subparsers.add_parser(cmd,
+                                      help='plot chip bandwidths')
+  plot_parser.set_defaults(func=plot)
+  plot_parser.add_argument('-f', '--filter',
+                           help='ex: "p;company;.*Cray.*|n;year;2008;2010"')
+  plot_parser.add_argument('-s', '--sort',
+                           help='sorts: "d;company;chipname" decending')
+  plot_parser.add_argument('plotfile',
+                           help='the plotfile to be written')
 
   # parse the command line
   args = parser.parse_args()

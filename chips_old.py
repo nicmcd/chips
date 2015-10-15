@@ -179,9 +179,9 @@ def make_field_range(field, fmin, fmax):
     return True if x[field] >= fmin and x[field] <= fmax else False
   return field_range
 
-chips = list(filter(make_field_match('company', 'IBM'), chips))
-chips = list(filter(make_field_match('chip', '.*Blue.*'), chips))
-chips = list(filter(make_field_range('year', 2000, 2009), chips))
+#chips = list(filter(make_field_match('company', 'IBM'), chips))
+#chips = list(filter(make_field_match('chip', '.*Blue.*'), chips))
+#chips = list(filter(make_field_range('year', 2000, 2009), chips))
 
 sorters = ['company', 'year']
 chips.sort(key=operator.itemgetter(*sorters), reverse=False)

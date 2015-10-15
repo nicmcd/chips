@@ -149,3 +149,12 @@ class ChipDB(object):
 
   def __str__(self):
     return json.dumps(self.chips, indent=2)
+
+  def matrix(self):
+    m = {}
+    for attr in ATTRS.keys():
+      m[attr] = []
+    for chip in self.chips:
+      for attr in ATTRS.keys():
+        m[attr].append(chip[attr])
+    return m
