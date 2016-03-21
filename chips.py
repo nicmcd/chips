@@ -31,7 +31,7 @@ def plot(args):
     db = db.filter(args.filter)
   if args.sort:
     db = db.sort(args.sort)
-  chipplot.plot_bandwidth(db, args.plotfile)
+  chipplot.plot_bandwidth(db, args.plotfile, args.view)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Router Chips tool')
@@ -87,6 +87,8 @@ if __name__ == '__main__':
                            help='ex: "p;company;.*Cray.*|n;year;2008;2010"')
   plot_parser.add_argument('-s', '--sort',
                            help='sorts: "d;company;chipname" decending')
+  plot_parser.add_argument('-v', '--view', action='store_true',
+                           help='show viewer GUI before saving')
   plot_parser.add_argument('plotfile',
                            help='the plotfile to be written')
 

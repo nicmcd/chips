@@ -6,7 +6,7 @@ import random
 import re
 
 
-def plot_bandwidth(db, plotfile):
+def plot_bandwidth(db, plotfile, view=False):
   m = db.matrix()
 
   # make labels
@@ -70,5 +70,11 @@ def plot_bandwidth(db, plotfile):
   # add legend to the right of plot
   ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1)
 
-  #plt.tight_layout()
-  plt.savefig(plotfile)
+  #fig.tight_layout()
+
+  # show in GUI
+  if view:
+    plt.show()
+
+  # save figure
+  fig.savefig(plotfile)
