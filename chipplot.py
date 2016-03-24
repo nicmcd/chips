@@ -40,8 +40,8 @@ def plot_bandwidth(db, plotfile, view=False):
   for ylabel in ax1.get_yticklabels():
     ytext = ylabel.get_text()
     if ytext:
-      m = re.search('mathdefault\{10\^\{(.*)\}\}', ytext)
-      exp = int(m.group(1))
+      m = re.findall('\d+', ytext)
+      exp = int(m[1])
       assert exp >= 0
       for unit in ['bps', 'kbps', 'Mbps', 'Gbps', 'Tbps', 'Pbps', 'Ebps',
                    'Zbps', 'Ybps']:
