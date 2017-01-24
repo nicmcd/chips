@@ -1,3 +1,4 @@
+import functools
 import json
 import operator
 import re
@@ -9,6 +10,26 @@ ATTRS = {
   'year': int,
   'bandwidth': float
 }
+
+# a comparison function for chips
+#  first compares company, then compares year, then compares chipname
+def compareChips(chip1, chip2):
+  if chip1['company'] < chip2['company']:
+    return -1
+  elif chip1['company'] > chip2['company']:
+    return 1
+  else:
+    if chip1['year'] < chip2['year']:
+      return -1
+    elif chip1['year'] > chip2['year']:
+      return 1
+    else:
+      if chip1['chipname'] < chip2['chipname']:
+        return -1
+      elif chip1['chipname'] > chip2['chipname']:
+        return 1
+      else:
+        return 0
 
 # these attributes represent the unique identifier for a chip
 ATTR_ID = ['company', 'chipname']
@@ -64,6 +85,7 @@ class ChipDB(object):
       del self.chips[rm_index]
 
   def load(self, filename):
+    # load the chips
     if self.verbose:
       print('loading from {0}'.format(filename))
     with open(filename, 'r') as fd:
@@ -71,7 +93,14 @@ class ChipDB(object):
     for chip in chips:
       self.add(**chip)
 
+    # sort the chips
+    self.chips.sort(key=functools.cmp_to_key(compareChips))
+
   def dump(self, filename):
+    # sort the chips
+    self.chips.sort(key=functools.cmp_to_key(compareChips))
+
+    # write the chips
     if self.verbose:
       print('dumping to {0}'.format(filename))
     with open(filename, 'w') as fd:

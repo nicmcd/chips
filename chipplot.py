@@ -16,7 +16,7 @@ def plot_bandwidth(db, plotfile, view=False):
     m['label'].append(' '.join(vals))
 
   markers = lns.Line2D.filled_markers
-  colors = ['b', 'r', 'g', 'c']
+  colors = ['b', 'r', 'g', 'c', 'y', 'm']
   styles = [(m, c) for m in markers for c in colors]
   random.shuffle(styles)
   markers = [s[0] for s in styles]#[0:len(years)]
@@ -73,7 +73,7 @@ def plot_bandwidth(db, plotfile, view=False):
 
   # axis labels and title
   ax1.set_xlabel('Year')
-  ax1.set_ylabel('I/O Bandwidth')
+  ax1.set_ylabel('Network I/O Bandwidth')
 
   # show in GUI
   if view:
