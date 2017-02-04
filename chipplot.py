@@ -18,7 +18,21 @@ def plot_bandwidth(db, plotfile, view=False):
   markers = lns.Line2D.filled_markers
   colors = ['b', 'r', 'g', 'c', 'y', 'm']
   styles = [(m, c) for m in markers for c in colors]
-  random.shuffle(styles)
+
+  # this is a hack to make the plot pretty
+  if False:
+  attempt = 0
+  while True:
+    random.shuffle(styles)
+    if (styles[1][0] == 's' and styles[1][1] == 'r' and
+        styles[5][0] == '*' and styles[5][1] == 'y' and
+        #styles[4][0] == '^' and
+        styles[29][0] == '*'):
+      break
+    else:
+      attempt += 1
+      print('attempt {} {}'.format(attempt, styles[1][0]))
+
   markers = [s[0] for s in styles]#[0:len(years)]
   colors = [s[1] for s in styles]#[0:len(years)]
 
